@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue.js"></script>
+	<script type="text/javascript" src="./lib/vue-router.js"></script>
+	<link type="text/css" rel="stylesheet" href="./lib/animate.css"></link>
+</head>
+<body>
+<div class="c1">
+	<div>
+		<!-- router-link 组件定义导航, to 制定链接 url -->
+		<router-link to="/home">主页</router-link>
+		<router-link to="/users">用户</router-link>
+	</div>
+	<div>
+		<!-- 动画切换路由, 和动画类似, 放入 transition 标签内即可 -->
+		<transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+			<router-view></router-view>
+		</transition>
+	</div>
+</div>
+<script>
+	// 1, 定义组件, 每个路由定义一个
+	var home = {
+		template: '<h2>我是主页</h2>'
+	}
+	var users = {
+		template: '<h2>我是用户</h2>'
+	}
+	// 2, 配置路由, 路由和组件建立联系
+	const routes = [
+		{
+			path: "/home", 
+			component: home
+		},
+		{
+			path: "/users", 
+			component: users
+		}
+	]
+	// 3, 创建路由实例
+	const router = new VueRouter({
+		routes: routes,
+		//mode: "history", // 更改模式, 默认是 hash, 地址后面有个 #
+		linkActiveClass: "active" // 简化活动链接的 class 名
+	})
+	// 4, 创建 Vue 实例
+	new Vue({
+		el: ".c1",
+		router: router // 注入路由
+	});
+</script>
+</body>
+</html>
